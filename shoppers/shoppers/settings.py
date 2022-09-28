@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'auth_app',
     'invoice_app',
     'expenses_app',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
+
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000' , 'http://localhost:3000']
 
 AUTH_USER_MODEL = 'auth_app.User'
 swappable = 'AUTH_USER_MODEL'
@@ -53,6 +56,7 @@ swappable = 'AUTH_USER_MODEL'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,10 +90,8 @@ WSGI_APPLICATION = 'shoppers.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'E_Shoppers',
-        'USER': 'root',
-        'PASSWORD': 'root'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
     }
 }
@@ -135,3 +137,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CORS_ORIGIN_ALLOW_ALL = True

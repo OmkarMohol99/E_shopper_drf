@@ -4,7 +4,7 @@ from django.db.models import CASCADE
 
 # Create your models here.
 class Customer(models.Model):
-    c_id = models.AutoField(primary_key=True)
+    c_id = models.IntegerField(primary_key=True)
     c_name = models.CharField(max_length=100, null=True, blank=True)
     c_email = models.EmailField(unique=True)
     c_phone = models.BigIntegerField(unique=True)
@@ -15,7 +15,7 @@ class Customer(models.Model):
 
 
 class Vendor(models.Model):
-    v_id = models.AutoField(primary_key=True)
+    v_id = models.IntegerField(primary_key=True)
     v_name = models.CharField(max_length=100)
     v_phone = models.BigIntegerField(unique=True)
     v_email = models.EmailField(unique=True)
@@ -27,7 +27,7 @@ class Vendor(models.Model):
 
 
 class Category(models.Model):
-    cat_id = models.AutoField(primary_key=True)
+    cat_id = models.IntegerField(primary_key=True)
     cat_name = models.CharField(max_length=100)
     cat_desc = models.CharField(max_length=255)
 
@@ -36,7 +36,7 @@ class Category(models.Model):
 
 
 class GST(models.Model):
-    gst_id = models.AutoField(primary_key=True)
+    gst_id = models.IntegerField(primary_key=True)
     category = models.ForeignKey(Category, on_delete=CASCADE)
     igst = models.IntegerField()
     hsn_code = models.IntegerField(unique=True)
@@ -46,7 +46,7 @@ class GST(models.Model):
 
 
 class Discount(models.Model):
-    discount_id = models.AutoField(primary_key=True)
+    discount_id = models.IntegerField(primary_key=True)
     product_name = models.CharField(max_length=100)
     desc = models.CharField(max_length=255)
     discount = models.FloatField()
@@ -58,7 +58,7 @@ class Discount(models.Model):
 
 
 class Product(models.Model):
-    p_id = models.AutoField(primary_key=True)
+    p_id = models.IntegerField(primary_key=True)
     category = models.ForeignKey(Category, on_delete=CASCADE)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE)
     discount = models.ForeignKey(Discount, on_delete=CASCADE)
@@ -75,7 +75,7 @@ class Product(models.Model):
 
 
 class PurchaseOrder(models.Model):
-    po_id = models.AutoField(primary_key=True)
+    po_id = models.IntegerField(primary_key=True)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE)
     product = models.ForeignKey(Product, on_delete=CASCADE)
     total_amount = models.FloatField(default=200000)
@@ -85,7 +85,7 @@ class PurchaseOrder(models.Model):
 
 
 class PurchaseOrderDetails(models.Model):
-    v_invoice_id = models.AutoField(primary_key=True)
+    v_invoice_id = models.IntegerField(primary_key=True)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE)
     purchaseorder = models.ForeignKey(
         PurchaseOrder, on_delete=CASCADE, default=True)
@@ -99,7 +99,7 @@ payment = (('cash', 'Cash'), ('Online', 'Online'))
 
 
 class CustomerInvoice(models.Model):
-    invoice_id = models.AutoField(primary_key=True)
+    invoice_id = models.IntegerField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=CASCADE)
     gross_cost = models.FloatField(default=0)
     tax_amount = models.FloatField(default=0)
@@ -113,7 +113,7 @@ class CustomerInvoice(models.Model):
 
 
 class CustomerOrder(models.Model):
-    order_id = models.AutoField(primary_key=True)
+    order_id = models.IntegerField(primary_key=True)
     customerinvoice = models.ForeignKey(CustomerInvoice, on_delete=CASCADE)
     discountorder = models.ForeignKey(
         Discount, on_delete=CASCADE, default=True)
@@ -125,7 +125,7 @@ class CustomerOrder(models.Model):
 
 
 class BalanceSheet(models.Model):
-    bs_id = models.AutoField(primary_key=True)
+    bs_id = models.IntegerField(primary_key=True)
     purchaseorderdetails = models.ForeignKey(
         PurchaseOrderDetails, on_delete=CASCADE)
     customerinvoice = models.ForeignKey(CustomerInvoice, on_delete=CASCADE)

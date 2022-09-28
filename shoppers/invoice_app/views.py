@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from .serializers import InvoiceSerializers, CustomerOrderSerializers
+from .serializers import CustomerSerializers, InvoiceSerializers, CustomerOrderSerializers, ProductSerializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db import connection
@@ -81,3 +81,31 @@ class CreateCustomerOrder(APIView):
             return Response(data=serializer.data, status=200)
         except:
             return Response(data={'message': 'Data Not Found'}, status=400)
+
+
+class CreateInvoice(APIView):
+     def post(self, request):
+        serializer = InvoiceSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=201)
+        return Response(data=serializer.errors, status=400)
+
+
+     def get(self, request):
+        queryset = models.CustomerInvoice.objects.all()
+        serializer = InvoiceSerializers(queryset, many=True)
+        return Response(data=serializer.data, status=200)
+
+
+class ProductDetails(APIView):
+     def get(self, request):
+        queryset = models.Product.objects.all()
+        serializer = ProductSerializers(queryset, many=True)
+        return Response(data=serializer.data, status=200)
+
+class Customerdetails(APIView):
+     def get(self, request):
+        queryset = models.Customer.objects.all()
+        serializer = CustomerSerializers(queryset, many=True)
+        return Response(data=serializer.data, status=200)
