@@ -24,3 +24,4 @@ class CustomerSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Customer
         fields ='__all__'
+
