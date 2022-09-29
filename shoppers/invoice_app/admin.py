@@ -2,6 +2,7 @@
 from django.contrib import admin
 from .models import Customer, CustomerInvoice, CustomerOrder, PurchaseOrder, PurchaseOrderDetails, Vendor, Product, Category, GST, Discount, BalanceSheet
 from auth_app.models import User
+from expenses_app.models import Expense_Balancesheet
 
 
 # Register your models here.
@@ -56,3 +57,4 @@ admin.site.register(Discount)
 admin.site.register(Product)
 admin.site.register(BalanceSheet)
 admin.site.register(User)
+admin.site.register(Expense_Balancesheet)
