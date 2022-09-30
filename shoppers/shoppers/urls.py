@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('invoice_app.urls')),
     path('token/', obtain_auth_token, name='token'),
-    path('', include('auth_app.urls'))
+    path('', include('auth_app.urls')),
+    path('expense_app/', include('expenses_app.urls'))
 ]
